@@ -1,27 +1,27 @@
+#include <map>
+#include <memory>
 #include <string>
+#include "Helper/Stack.hpp"
 #include "State/StateInterface.hpp"
 #include "State/StateStack.hpp"
 
-StateStack::StateStack(){
-    mStates = [];
-    mStack = [];
-}
+StateStack::StateStack(){}
 
 void StateMachine::update(float elapsedTime){
-    StateInterface top = mStack.peek();
+    StateInterface *top = std::move(mStack.peek());
     top.update(elapsedTime);
 }
 
 void StateMachine::render(){
-    StateInterface top = mStack.peek();
+    StateInterface *top = std::move(mStack.peek());
     top.render();
 }
 
 void StateMachine::push(std::string stateName, int *param){
-    StateInterface state = mStates[stateName];
+    std::unique_ptr<StateInterface> state = std::move(mStates[stateName]);
     mStack.push(state);
 }
 
-StateInterface StateMachine::add(std::string name, StateInterface *state){
-    return mStack.pop();
+std::unique_ptr<StateInterface> StateMachine::pop(){
+    return std::move(mStack.pop());
 }
