@@ -1,0 +1,5 @@
+.env
+*.ase
+notes.txt
+*.todo
+todo
