@@ -9,12 +9,12 @@ StateStack::StateStack(){}
 
 void StateMachine::update(float elapsedTime){
     StateInterface *top = std::move(mStack.peek());
-    top.update(elapsedTime);
+    top->update(elapsedTime);
 }
 
 void StateMachine::render(){
     StateInterface *top = std::move(mStack.peek());
-    top.render();
+    top->render();
 }
 
 void StateMachine::push(std::string stateName, int *param){
