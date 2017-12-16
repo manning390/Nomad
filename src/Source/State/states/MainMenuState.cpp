@@ -8,7 +8,7 @@ void MainMenuState::render() {
 
 }
 
-void MainMenuState::onEnter() {
+void MainMenuState::onEnter(int* param) {
 
 }
 
