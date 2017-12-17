@@ -1,6 +1,10 @@
 #include "State/StateInterface.hpp"
 #include "State/MainMenuState.hpp"
 
+MainMenuState::MainMenuState(){
+
+}
+
 void MainMenuState::update(float dTime) {
 }
 

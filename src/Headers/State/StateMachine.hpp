@@ -1,4 +1,4 @@
-#include <string>
+#include <map>
 #include <memory>
 #include <string>
 #include "State/StateInterface.hpp"
@@ -12,6 +12,6 @@ class StateMachine {
         void add(std::string name, std::unique_ptr<StateInterface> state);
 
     private:
-        std::map<std::string, std::unique_prt<StateInterface>> mStates;
+        std::map<std::string, std::unique_ptr<StateInterface>> mStates;
         StateInterface* mCurrentState;
 };
