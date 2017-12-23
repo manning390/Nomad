@@ -1,3 +1,6 @@
+#ifndef STATE_STATESTACK
+#define STATE_STATESTACK
+
 #include <map>
 #include <memory>
 #include <string>
@@ -16,3 +19,5 @@ class StateStack {
         std::map<std::string, std::unique_ptr<StateInterface>> mStates;
         stack<std::unique_ptr<StateInterface>> mStack;
 }
+
+#endif // STATE_STATESTACK

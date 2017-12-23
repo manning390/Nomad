@@ -10,6 +10,4 @@ class StateInterface {
         virtual ~StateInterface() = 0;
 };
 
-StateInterface::~StateInterface(){}
-
 #endif // STATE_STATEINTERFACE

@@ -3,3 +3,4 @@
 notes.txt
 *.todo
 todo
+*.o

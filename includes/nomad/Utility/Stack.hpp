@@ -1,3 +1,6 @@
+#ifndef UTILITY_STACK
+#define UTILITY_STACK
+
 template<class T>
 class Stack {
 public:
@@ -34,3 +37,5 @@ T Stack<T>::peek() {
     }
     return elem.back();
 }
+
+#endif // UTILITY_STACK

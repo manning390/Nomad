@@ -1,7 +1,7 @@
 // Source: http://www.cplusplus.com/forum/general/21115/
 
-#ifndef CONFIG
-#define CONFIG
+#ifndef CONFIG_CONFIG
+#define CONFIG_CONFIG
 
 #include <map>
 #include <string>
@@ -92,4 +92,4 @@ namespace config {
 
 } // namespace configuration
 
-#endif // CONFIG
+#endif // CONFIG_CONFIG

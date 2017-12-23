@@ -8,8 +8,9 @@ StateMachine::StateMachine() {
     mCurrentState = nullptr;
 }
 
-void StateMachine::update(float elapsedTime) {
-    mCurrentState->update(elapsedTime);
+void StateMachine::update(float dTime) {
+    mCurrentState->update(dTime);
+    render();
 }
 
 void StateMachine::render() {

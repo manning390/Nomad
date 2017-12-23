@@ -1,4 +1,3 @@
-#include "State/StateInterface.hpp"
 #include "State/MainMenuState.hpp"
 
 MainMenuState::MainMenuState(){
@@ -19,3 +18,5 @@ void MainMenuState::onEnter(int* param) {
 void MainMenuState::onExit() {
 
 }
+
+// MainMenuState::~MainMenuState(){}

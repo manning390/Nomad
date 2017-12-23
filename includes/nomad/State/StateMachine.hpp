@@ -1,3 +1,6 @@
+#ifndef STATE_STATEMACHINE
+#define STATE_STATEMACHINE
+
 #include <map>
 #include <memory>
 #include <string>
@@ -15,3 +18,5 @@ class StateMachine {
         std::map<std::string, std::unique_ptr<StateInterface>> mStates;
         StateInterface* mCurrentState;
 };
+
+#endif // STATE_STATEMACHINE
