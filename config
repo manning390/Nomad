@@ -1,7 +1,7 @@
-ver=v0.0.1
+ver=v0.0.2
 
 # Window Settings
 # modes: 0 windowed, 1 full screen, 2 borderless
 # windowMode=0
 windowX=800
-windowY=800
+windowY=600

@@ -5,8 +5,9 @@
 
 #include <map>
 #include <string>
-#include <sstream>
+#include <fstream>
 #include <iostream>
+#include <sstream>
 
 namespace config {
     //---------------------------------------------------------------------------
@@ -18,7 +19,7 @@ namespace config {
     //
     // Example:
     //   # This is an example
-    //   source.directory = C:\Documents and Settings\Jennifer\My Documents\
+    //   source.directory = C:\Documents and Settings\Jennifer\My Documents
     //   file.types = *.jpg;*.gif;*.png;*.pix;*.tif;*.bmp
     //
     // Notice that the configuration file format does not permit values to span
@@ -38,13 +39,22 @@ namespace config {
             if (!ss.eof()) throw 1;
             return result;
         }
+
+        unsigned int getUInt(const std::string& key) {
+            if (!iskey( key )) throw 0;
+            std::istringstream ss( this->operator [] ( key ) );
+            unsigned int result;
+            ss >> result;
+            if (!ss.eof()) throw 1;
+            return result;
+        }
     };
 
     //---------------------------------------------------------------------------
     // The extraction operator reads configuration::data until EOF.
     // Invalid data is ignored.
     //
-    std::istream& operator >> ( std::istream& ins, data& d ) {
+    inline std::istream& operator >> ( std::istream& ins, data& d ) {
         std::string s, key, value;
 
         // For each (key, value) pair in the file
@@ -83,7 +93,7 @@ namespace config {
     //---------------------------------------------------------------------------
     // The insertion operator writes all configuration::data to stream.
     //
-    std::ostream& operator << ( std::ostream& outs, const data& d ) {
+    inline std::ostream& operator << ( std::ostream& outs, const data& d ) {
         data::const_iterator iter;
         for (iter = d.begin(); iter != d.end(); iter++)
           outs << iter->first << " = " << iter->second << std::endl;
