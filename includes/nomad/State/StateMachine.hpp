@@ -1,22 +1,44 @@
 #ifndef STATE_STATEMACHINE
 #define STATE_STATEMACHINE
 
-#include <map>
+#include <stack>
 #include <memory>
 #include <string>
-#include "State/StateInterface.hpp"
+#include "State/State.hpp"
+
+class State;
+
+namespace sf {
+    class RenderWindow;
+}
 
 class StateMachine {
     public:
         StateMachine();
-        void update(float dTime);
-        void render();
-        void change(std::string stateName, int *param);
-        void add(std::string name, std::unique_ptr<StateInterface> state);
 
+        void run(std::unique_ptr<State> state);
+
+        void nextState();
+        void lastState();
+
+        void update();
+        void draw();
+
+        bool isRunning() { return running; }
+        void quit() { running = false; }
+
+        template<typename T>
+        static std::unique_ptr<T> build(StateMachine& machine, sf::RenderWindow& window, bool replace = true);
     private:
-        std::map<std::string, std::unique_ptr<StateInterface>> mStates;
-        StateInterface* mCurrentState;
+        std::stack<std::unique_ptr<State>> states;
+
+        bool resume;
+        bool running;
 };
+
+template <typename T>
+std::unique_ptr<T> StateMachine::build(StateMachine& machine, sf::RenderWindow& window, bool replace) {
+    return std::unique_ptr<T>(new T(machine, window, replace));
+}
 
 #endif // STATE_STATEMACHINE

@@ -1,29 +1,52 @@
-#include <map>
-#include <memory>
-#include <string>
+#include <iostream>
 #include "State/StateMachine.hpp"
-#include "State/StateInterface.hpp"
 
-StateMachine::StateMachine() {
-    mCurrentState = nullptr;
+StateMachine::StateMachine(): resume{ false }, running{ false } {
+    std::cout << "StateMachine Init" << std::endl;
 }
 
-void StateMachine::update(float dTime) {
-    mCurrentState->update(dTime);
-    render();
+void StateMachine::run(std::unique_ptr<State> state) {
+    running = true;
+    states.push(std::move(state));
 }
 
-void StateMachine::render() {
-    mCurrentState->render();
+void StateMachine::nextState() {
+    if(resume) {
+        // Clean current state
+        if(!states.empty()) {
+            states.pop();
+        }
+
+        // Resume previous
+        if(!states.empty()) {
+            states.top()->resume();
+        }
+
+        resume = false;
+    }
+
+    if(!states.empty()) {
+        std::unique_ptr<State> temp = states.top()->next();
+
+        // Only change states if there's a next one existing
+        if(temp != nullptr) {
+            if(temp->isReplacing())
+                states.pop(); // Replace running
+            else
+                states.top()->pause(); // Pause running
+            states.push(std::move(temp));
+        }
+    }
 }
 
-void StateMachine::change(std::string stateName, int* param) {
-    mCurrentState->onExit();
-    mCurrentState = mStates[stateName].get();
-    mCurrentState->onEnter(param);
+void StateMachine::lastState() {
+    resume = true;
 }
 
-void StateMachine::add(std::string name, std::unique_ptr<StateInterface> state) {
-    mStates[name] = std::move(state);
+void StateMachine::update() {
+    states.top()->update();
 }
 
+void StateMachine::draw(){
+    states.top()->draw();
+}
