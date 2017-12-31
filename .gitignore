@@ -4,3 +4,4 @@ notes.txt
 *.todo
 todo
 *.o
+bin/*.exe
